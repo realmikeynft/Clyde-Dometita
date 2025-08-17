@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clyde Dometita | Virtual Assistant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0f172a;
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .skill-bubble {
+            transition: all 0.3s ease;
+        }
+        
+        .skill-bubble:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+        }
+        
+        .floating {
+            animation: floating 6s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .glow {
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+        }
+        
+        .contact-input {
+            background: rgba(15, 23, 42, 0.7);
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-input:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .service-card {
+            background: linear-gradient(145deg, #1e293b, #0f172a);
+            border: 1px solid #334155;
+            transition: all 0.4s ease;
+        }
+        
+        .service-card:hover {
+            background: linear-gradient(145deg, #1e40af, #1e293b);
+            border-color: #3b82f6;
+        }
+        
+        .scroll-down {
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-20px);}
+            60% {transform: translateY(-10px);}
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-slate-900/80 to-purple-900/20"></div>
+        <div class="absolute inset-0 opacity-20">
+            <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-blue-500 blur-3xl opacity-30"></div>
+            <div class="absolute top-2/3 right-1/3 w-72 h-72 rounded-full bg-purple-500 blur-3xl opacity-30"></div>
+            <div class="absolute bottom-1/4 right-1/4 w-60 h-60 rounded-full bg-pink-500 blur-3xl opacity-30"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-2xl font-bold gradient-text">CLYDE</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-center space-x-8">
+                        <a href="#home" class="nav-link text-white px-3 py-2 text-sm font-medium">Home</a>
+                        <a href="#about" class="nav-link text-white px-3 py-2 text-sm font-medium">About</a>
+                        <a href="#skills" class="nav-link text-white px-3 py-2 text-sm font-medium">Skills</a>
+                        <a href="#services" class="nav-link text-white px-3 py-2 text-sm font-medium">Services</a>
+                        <a href="#contact" class="nav-link text-white px-3 py-2 text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="menu-btn" class="text-white focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-900/95 backdrop-blur-lg border-t border-slate-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800">About</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800">Skills</a>
+                <a href="#services" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800">Services</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-slate-800">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-16 md:pt-32 md:pb-24 min-h-screen flex items-center">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h1 class="text-4xl md:text-6xl font-bold leading-tight">
+                        Hi, I'm <span class="gradient-text">Clyde Dometita</span>
+                    </h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold text-slate-300">
+                        Your <span class="gradient-text">New Virtual Assistant</span>
+                    </h2>
+                    <p class="text-lg text-slate-400 max-w-lg">
+                        Virtual Assistant, Shopify Expert, Content Creator & AI Specialist. I help businesses streamline operations and maximize their digital potential.
+                    </p>
+                    <div class="flex flex-wrap gap-4 pt-4">
+                        <a href="#contact" class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-medium text-white hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+                            Get In Touch
+                        </a>
+                        <a href="#services" class="px-6 py-3 border border-slate-600 rounded-lg font-medium text-white hover:bg-slate-800/50 transition-all duration-300 transform hover:scale-105">
+                            Explore Services
+                        </a>
+                    </div>
+                </div>
+                <div class="relative flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full overflow-hidden border-4 border-slate-700 glow floating">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 via-purple-500/20 to-pink-500/20"></div>
+                        <div class="absolute inset-4 rounded-full overflow-hidden">
+                            <!-- Replace with your actual image -->
+                            <img src="https://media.onlinejobs.ph/jobseekers_pictures/ac5905b6c29a303a723af4bbbd9f72c6_250x250.png" alt="Clyde Dometita" class="w-full h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="absolute -bottom-6 left-0 bg-slate-800/80 backdrop-blur-sm px-4 py-2 rounded-lg border border-slate-700">
+                        <p class="text-sm font-medium text-white">23 Years Young</p>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-16 text-center scroll-down">
+                <a href="#about" class="inline-block animate-bounce">
+                    <svg class="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 md:py-24 bg-slate-900/50 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text inline-block">About Me</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <h3 class="text-2xl font-semibold text-white">Who is Clyde Dometita?</h3>
+                    <p class="text-slate-400">
+                        I'm a 23-year-old digital professional with a diverse skill set that makes me a valuable asset to any business. My journey in the digital world has equipped me with expertise across multiple domains, allowing me to provide comprehensive solutions to my clients.
+                    </p>
+                    <p class="text-slate-400">
+                        What sets me apart is my ability to wear multiple hats while maintaining exceptional quality in each area. I don't just perform tasks - I understand how they interconnect to create a cohesive digital strategy for your business.
+                    </p>
+                    <div class="pt-4">
+                        <a href="#contact" class="inline-flex items-center px-5 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-medium text-white hover:opacity-90 transition-all duration-300">
+                            Let's Work Together
+                            <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm">
+                        <h4 class="text-xl font-semibold text-white mb-4">My Work Philosophy</h4>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-500 text-white">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="ml-3 text-slate-400">Quality over quantity - every task receives my full attention</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="flex items-center justify-center h-6 w-6 rounded-full bg-purple-500 text-white">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="ml-3 text-slate-400">Continuous learning to stay ahead of digital trends</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="flex items-center justify-center h-6 w-6 rounded-full bg-pink-500 text-white">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="ml-3 text-slate-400">Strategic thinking to maximize your business impact</p>
+                            </li>
+                            <li class="flex items-start">
+                                <div class="flex-shrink-0 mt-1">
+                                    <div class="flex items-center justify-center h-6 w-6 rounded-full bg-blue-400 text-white">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <p class="ml-3 text-slate-400">Clear communication for seamless collaboration</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text inline-block">My Skills</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                <p class="mt-6 max-w-2xl mx-auto text-slate-400">
+                    A versatile skill set that allows me to handle multiple aspects of your digital business
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <!-- Skill Category 1 -->
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm card-hover">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-blue-500/20 text-blue-400 mb-4">
+                        <i class="fas fa-store text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Shopify Expertise</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-blue-400 mr-2 text-xs"></i>
+                            Store Setup & Customization
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-blue-400 mr-2 text-xs"></i>
+                            Product Research
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-blue-400 mr-2 text-xs"></i>
+                            Dropshipping Management
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-blue-400 mr-2 text-xs"></i>
+                            Customer Support
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Skill Category 2 -->
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm card-hover">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-purple-500/20 text-purple-400 mb-4">
+                        <i class="fas fa-pen-fancy text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Content Creation</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2 text-xs"></i>
+                            Copywriting
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2 text-xs"></i>
+                            SEO Writing
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2 text-xs"></i>
+                            Newsletter Creation
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-purple-400 mr-2 text-xs"></i>
+                            Article Writing
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Skill Category 3 -->
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm card-hover">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-pink-500/20 text-pink-400 mb-4">
+                        <i class="fas fa-video text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Multimedia</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2 text-xs"></i>
+                            Video Editing
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2 text-xs"></i>
+                            Graphic Design
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2 text-xs"></i>
+                            Creative Ad Design
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-pink-400 mr-2 text-xs"></i>
+                            Visual Content Creation
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Skill Category 4 -->
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-6 backdrop-blur-sm card-hover">
+                    <div class="flex items-center justify-center w-12 h-12 rounded-lg bg-green-500/20 text-green-400 mb-4">
+                        <i class="fas fa-robot text-xl"></i>
+                    </div>
+                    <h3 class="text-lg font-semibold text-white mb-2">AI Integration</h3>
+                    <ul class="space-y-2 text-slate-400 text-sm">
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            AI-Assisted Writing
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            AI Research Tools
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            Process Automation
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-green-400 mr-2 text-xs"></i>
+                            AI Content Enhancement
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="mt-12 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Shopify
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Dropshipping
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Copywriting
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    SEO
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Video Editing
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Graphic Design
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    AI Tools
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Customer Support
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Product Research
+                </div>
+                <div class="skill-bubble bg-slate-800/50 border border-slate-700 rounded-full py-3 px-6 text-center text-sm font-medium text-white">
+                    Business Consultation
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="mt-12 flex flex-wrap justify-center gap-4">
+    <a href="portfolio.html" 
+       class="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-medium text-white hover:opacity-90 transition-all duration-300 transform hover:scale-105">
+       View My Portfolio
+    </a>
+    <a href="assets/Clyde_Dometita_Resume.pdf" target="_blank"
+       class="px-6 py-3 border border-slate-600 rounded-lg font-medium text-white hover:bg-slate-800/50 transition-all duration-300 transform hover:scale-105">
+       Download Resume
+    </a>
+</div>
+
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 md:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold gradient-text inline-block">Get In Touch</h2>
+                <div class="w-16 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mt-4 rounded-full"></div>
+                <p class="mt-6 max-w-2xl mx-auto text-slate-400">
+                    Ready to take your business to the next level? Let's talk about how I can help.
+                </p>
+            </div>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="space-y-8">
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-white mb-6">Contact Information</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-lg bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-semibold text-slate-300">Email</h4>
+                                    <a href="mailto:mrclydedometita@gmail.com" class="text-blue-400 hover:text-blue-300">mrclydedometita@gmail.com</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-lg bg-green-500/20 flex items-center justify-center text-green-400">
+                                    <i class="fas fa-phone-alt"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-semibold text-slate-300">Phone/WhatsApp/Viber/Telegram</h4>
+                                    <a href="tel:+639473836864" class="text-green-400 hover:text-green-300">(+63) 947-383-6864</a>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="flex-shrink-0 h-10 w-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                    <i class="fab fa-discord"></i>
+                                </div>
+                                <div class="ml-4">
+                                    <h4 class="text-sm font-semibold text-slate-300">Discord</h4>
+                                    <p class="text-purple-400">realmikeynft</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 backdrop-blur-sm">
+                        <h3 class="text-xl font-bold text-white mb-6">Availability</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400">Monday - Friday</span>
+                                <span class="font-medium text-white">9:00 AM - 6:00 PM</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400">Saturday</span>
+                                <span class="font-medium text-white">10:00 AM - 3:00 PM</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-slate-400">Sunday</span>
+                                <span class="font-medium text-white">Closed</span>
+                            </div>
+                        </div>
+                        <div class="mt-6 pt-6 border-t border-slate-700">
+                            <p class="text-slate-400">
+                                <i class="fas fa-info-circle text-blue-400 mr-2"></i>
+                                Free initial consultation for all new clients
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 backdrop-blur-sm">
+                    <h3 class="text-xl font-bold text-white mb-6">Send Me a Message</h3>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-slate-300 mb-1">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg contact-input text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg contact-input text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-slate-300 mb-1">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg contact-input text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-slate-300 mb-1">Your Message</label>
+                            <textarea id="message" rows="5" class="w-full px-4 py-3 rounded-lg contact-input text-white focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-medium text-white hover:opacity-90 transition-all duration-300 transform hover:scale-[1.02]">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900/80 backdrop-blur-sm border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <span class="text-2xl font-bold gradient-text">CLYDE DOMETITA</span>
+                    <p class="mt-2 text-slate-400 text-sm">Virtual Assistant</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="mailto:mrclydedometita@gmail.com" class="text-slate-400 hover:text-blue-400 transition-colors duration-300">
+                        <i class="fas fa-envelope text-xl"></i>
+                    </a>
+                    <a href="tel:+639473836864" class="text-slate-400 hover:text-green-400 transition-colors duration-300">
+                        <i class="fas fa-phone-alt text-xl"></i>
+                    </a>
+                    <a href="#" class="text-slate-400 hover:text-purple-400 transition-colors duration-300">
+                        <i class="fab fa-discord text-xl"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="mt-8 pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-slate-500 text-sm mb-4 md:mb-0">
+                    &copy; 2023 Clyde Dometita. All rights reserved.
+                </p>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-slate-500 hover:text-white text-sm transition-colors duration-300">Privacy Policy</a>
+                    <a href="#" class="text-slate-500 hover:text-white text-sm transition-colors duration-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Initialize GSAP animations
+        document.addEventListener('DOMContentLoaded', function() {
+            gsap.registerPlugin(ScrollTrigger);
+            
+            // Animate elements on scroll
+            gsap.utils.toArray('.card-hover, .service-card').forEach((card, i) => {
+                gsap.from(card, {
+                    scrollTrigger: {
+                        trigger: card,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    delay: i * 0.1
+                });
+            });
+            
+            // Hero section animation
+            gsap.from("#home h1, #home h2", {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                stagger: 0.2,
+                ease: "power3.out"
+            });
+            
+            gsap.from("#home p, #home a", {
+                duration: 1,
+                y: 30,
+                opacity: 0,
+                delay: 0.8,
+                stagger: 0.1,
+                ease: "power3.out"
+            });
+            
+            // Skill bubbles animation
+            gsap.utils.toArray('.skill-bubble').forEach((bubble, i) => {
+                gsap.from(bubble, {
+                    scrollTrigger: {
+                        trigger: bubble,
+                        start: "top 90%",
+                        toggleActions: "play none none none"
+                    },
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.5,
+                    delay: i * 0.05,
+                    ease: "back.out(1.7)"
+                });
+            });
+            
+            // Gradient text animation
+            const gradientTexts = document.querySelectorAll('.gradient-text');
+            gradientTexts.forEach(text => {
+                text.addEventListener('mouseenter', function() {
+                    gsap.to(text, {
+                        duration: 0.3,
+                        backgroundPosition: '100% 50%',
+                        ease: "power2.inOut"
+                    });
+                });
+                
+                text.addEventListener('mouseleave', function() {
+                    gsap.to(text, {
+                        duration: 0.3,
+                        backgroundPosition: '0% 50%',
+                        ease: "power2.inOut"
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
