@@ -107,61 +107,6 @@
             40% {transform: translateY(-20px);}
             60% {transform: translateY(-10px);}
         }
-        /* Contact section */
-#contact {
-  padding: 50px;
-  text-align: center;
-}
-
-#contact h2 {
-  font-size: 28px;
-  margin-bottom: 20px;
-}
-
-#contact p {
-  margin-bottom: 30px;
-  color: #555;
-}
-
-/* Contact form */
-.contact-form {
-  max-width: 500px;
-  margin: auto;
-  text-align: left;
-}
-
-.contact-form label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: bold;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 14px;
-}
-
-.contact-form button {
-  width: 100%;
-  padding: 14px;
-  background: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.contact-form button:hover {
-  background: #0056b3;
-}
-
     </style>
 </head>
 <body class="min-h-screen">
@@ -521,7 +466,7 @@
                                 </div>
                                 <div class="ml-4">
                                     <h4 class="text-sm font-semibold text-slate-300">Email</h4>
-                                    <a href="mailto:mrclydedometita@gmail.com" class="text-blue-400 hover:text-blue-300">mrclydedometita@gmail.com</a>
+                                    <a href="mailto:mrclyderazon@gmail.com" class="text-blue-400 hover:text-blue-300">mrclyderazon@gmail.com</a>
                                 </div>
                             </div>
                             
@@ -571,25 +516,41 @@
                         </div>
                     </div>
                 </div>
-                
-               <section id="contact">
-  <h2>Send Me a Message</h2>
-  <p>I'd love to hear from you! Fill out the form below:</p>
+               <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-8 backdrop-blur-sm">
+  <h3 class="text-xl font-bold text-white mb-6">Send Me a Message</h3>
 
-  <form action="https://formspree.io/f/manbzjyk" method="POST" class="contact-form">
+  <form action="https://formspree.io/f/manbzjyk" method="POST" class="space-y-6">
     
-    <label for="name">Your Name</label>
-    <input type="text" id="name" name="name" required>
+    <div>
+      <label for="name" class="block text-sm font-medium text-slate-300 mb-1">Your Name</label>
+      <input type="text" id="name" name="name" required
+        class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
 
-    <label for="email">Your Email</label>
-    <input type="email" id="email" name="email" required>
+    <div>
+      <label for="email" class="block text-sm font-medium text-slate-300 mb-1">Email Address</label>
+      <input type="email" id="email" name="email" required
+        class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
 
-    <label for="message">Your Message</label>
-    <textarea id="message" name="message" rows="5" required></textarea>
+    <div>
+      <label for="subject" class="block text-sm font-medium text-slate-300 mb-1">Subject</label>
+      <input type="text" id="subject" name="subject"
+        class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500">
+    </div>
 
-    <button type="submit">Send Message</button>
+    <div>
+      <label for="message" class="block text-sm font-medium text-slate-300 mb-1">Your Message</label>
+      <textarea id="message" name="message" rows="5" required
+        class="w-full px-4 py-3 rounded-lg bg-slate-900/50 border border-slate-700 text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"></textarea>
+    </div>
+
+    <button type="submit"
+      class="w-full px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg font-medium text-white shadow-lg hover:opacity-90 hover:scale-[1.02] transition-all duration-300">
+      Send Message
+    </button>
   </form>
-</section>
+</div>
 
 
     <!-- Footer -->
@@ -602,7 +563,7 @@
                 </div>
                 
                 <div class="flex space-x-6">
-                    <a href="mailto:mrclydedometita@gmail.com" class="text-slate-400 hover:text-blue-400 transition-colors duration-300">
+                    <a href="mailto:mrclyderazon@gmail.com" class="text-slate-400 hover:text-blue-400 transition-colors duration-300">
                         <i class="fas fa-envelope text-xl"></i>
                     </a>
                     <a href="tel:+639473836864" class="text-slate-400 hover:text-green-400 transition-colors duration-300">
