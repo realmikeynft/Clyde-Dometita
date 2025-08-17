@@ -5,11 +5,12 @@
   <title>Clyde Dometita | Portfolio</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<section id="portfolio" class="py-16 bg-slate-900">
-  <div class="max-w-6xl mx-auto px-6">
-    <h2 class="text-3xl font-bold text-white text-center mb-12">My Portfolio</h2>
-    
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+<body class="bg-slate-900">
+  <section id="portfolio" class="py-16">
+    <div class="max-w-6xl mx-auto px-6">
+      <h2 class="text-3xl font-bold text-white text-center mb-12">My Portfolio</h2>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
       
       <!-- Aquariums For Beginners -->
       <div class="bg-slate-800/50 border border-slate-700 rounded-xl overflow-hidden shadow-lg hover:scale-[1.02] transition-all duration-300">
@@ -189,10 +190,16 @@
           <h3 class="text-lg font-semibold text-white mb-2">Home Plant Store</h3>
           <p class="text-slate-300 text-sm">Fresh, modern template for houseplant shops.</p>
       </div>
-      </section>
-    <div class="mt-12">
-      <a href="index.html" class="px-6 py-3 bg-blue-600 rounded-lg text-white font-medium hover:opacity-80">⬅ Back to Home</a>
+      </div>
+
+      <!-- ✅ Back to Home outside the section -->
+      <div class="mt-12 text-center">
+        <a href="index.html" 
+           class="px-6 py-3 bg-blue-600 rounded-lg text-white font-medium hover:opacity-80 transition">
+          ⬅ Back to Home
+        </a>
+      </div>
     </div>
-  </div>
+  </section>
 </body>
 </html>
